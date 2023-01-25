@@ -13,6 +13,9 @@ pipeline {
         dir('APP') {
           git branch: 'main', url: 'https://github.com/raghudevopsb69/${COMPONENT}'
         }
+        dir('HELM') {
+          git branch: 'main', url: 'https://github.com/raghudevopsb69/roboshop-helm-chart'
+        }
       }
     }
 
@@ -20,7 +23,7 @@ pipeline {
       steps {
         sh 'pwd'
         sh 'ls -l '
-        sh 'helm upgrade -i  ${COMPONENT} . -f APP/helm-values.yml --set appVersion="${APP_VERSION}"'
+        sh 'helm upgrade -i  ${COMPONENT} ./HELM -f APP/helm-values.yml --set appVersion="${APP_VERSION}"'
       }
 
     }
