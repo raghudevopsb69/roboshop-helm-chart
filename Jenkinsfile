@@ -18,7 +18,7 @@ pipeline {
 
     stage('Install Helm Chart') {
       steps {
-        sh 'helm install ${COMPONENT} . -f APP/helm-values.yml'
+        sh 'helm install ${COMPONENT} . -f APP/helm-values.yml --set appVersion=${APP_VERSION}'
       }
 
     }
