@@ -11,7 +11,7 @@ pipeline {
     stage('Get App Code') {
       steps {
         dir('APP') {
-          git 'https://github.com/raghudevopsb69/${COMPONENT}'
+          git branch: 'main', url: 'https://github.com/raghudevopsb69/${COMPONENT}'
         }
       }
     }
