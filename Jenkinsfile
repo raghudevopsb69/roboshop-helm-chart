@@ -18,6 +18,8 @@ pipeline {
 
     stage('Install Helm Chart') {
       steps {
+        sh 'pwd'
+        sh 'ls -l '
         sh 'helm upgrade -i  ${COMPONENT} . -f APP/helm-values.yml --set appVersion=${APP_VERSION}'
       }
 
