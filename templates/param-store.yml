@@ -7,6 +7,6 @@ spec:
     parameters:
         objects: |
             {{- range .Values.parameters}}
-            - objectName: {{ . | title | quote }}
+            - objectName: {{ . | quote }}
               objectType: "ssmparameter"
             {{- end }}
