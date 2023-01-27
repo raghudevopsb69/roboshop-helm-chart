@@ -8,6 +8,8 @@ spec:
   containers:
     - name: frontend
       image: 739561048503.dkr.ecr.us-east-1.amazonaws.com/{{ .Values.component }}:{{ .Values.appVersion }}
+      {{- if .Values.secretmanager }}
       envFrom:
       - secretRef:
           name: {{ .Values.component }}
+      {{- end }}
