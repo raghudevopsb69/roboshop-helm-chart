@@ -13,7 +13,13 @@ spec:
       - secretRef:
           name: {{ .Values.component }}
       {{- end }}
+  {{- if .Values.initcontainer }}
   initContainers:
-    - name: init-myservice
-      image: busybox:1.28
-      command: ['sh', '-c', "until nslookup myservice.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for myservice; sleep 2; done"]
+    - name: dbload
+      image: 739561048503.dkr.ecr.us-east-1.amazonaws.com/init-container:2.0.2
+      envFrom:
+        - secretRef:
+            name: {{ .Values.component }}
+  {{- end }}
+
+
