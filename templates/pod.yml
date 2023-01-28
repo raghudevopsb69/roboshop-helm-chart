@@ -1,25 +1,32 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: {{ .Values.component }}
   labels:
     component: {{ .Values.component }}
 spec:
-  containers:
-    - name: {{ .Values.component }}
-      image: 739561048503.dkr.ecr.us-east-1.amazonaws.com/{{ .Values.component }}:{{ .Values.appVersion }}
-      {{- if .Values.secretmanager }}
-      envFrom:
-      - secretRef:
-          name: {{ .Values.component }}
-      {{- end }}
-  {{- if .Values.initcontainer }}
-  initContainers:
-    - name: dbload
-      image: 739561048503.dkr.ecr.us-east-1.amazonaws.com/init-container:2.0.4
-      envFrom:
+  replicas: 2
+  selector:
+    matchLabels:
+      component: {{ .Values.component }}
+  template:
+    metadata:
+      labels:
+        component: {{ .Values.component }}
+    spec:
+      containers:
+      - name: {{ .Values.component }}
+        image: 739561048503.dkr.ecr.us-east-1.amazonaws.com/{{ .Values.component }}:{{ .Values.appVersion }}
+        {{- if .Values.secretmanager }}
+        envFrom:
         - secretRef:
             name: {{ .Values.component }}
-  {{- end }}
-
-
+        {{- end }}
+      {{- if .Values.initcontainer }}
+      initContainers:
+        - name: dbload
+          image: 739561048503.dkr.ecr.us-east-1.amazonaws.com/init-container:2.0.4
+          envFrom:
+            - secretRef:
+                name: {{ .Values.component }}
+      {{- end }}
