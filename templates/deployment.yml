@@ -21,13 +21,13 @@ spec:
           httpGet:
             path: /health
             port: {{ .Values.service.targetPort }}
-          initialDelaySeconds: 3
+          initialDelaySeconds: 30
           periodSeconds: 3
         readinessProbe:
           httpGet:
             path: /health
             port: {{ .Values.service.targetPort }}
-          initialDelaySeconds: 3
+          initialDelaySeconds: 30
           periodSeconds: 3
         resources:
           requests:
