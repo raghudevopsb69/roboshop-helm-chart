@@ -44,7 +44,7 @@ spec:
       {{- if .Values.initcontainer }}
       initContainers:
         - name: dbload
-          image: 739561048503.dkr.ecr.us-east-1.amazonaws.com/init-container:2.0.4
+          image: 739561048503.dkr.ecr.us-east-1.amazonaws.com/init-container:2.0.5
           envFrom:
             - secretRef:
                 name: {{ .Values.component }}
