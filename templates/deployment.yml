@@ -17,6 +17,13 @@ spec:
       containers:
       - name: {{ .Values.component }}
         image: 739561048503.dkr.ecr.us-east-1.amazonaws.com/{{ .Values.component }}:{{ .Values.appVersion }}
+        resources:
+          requests:
+            memory: {{ .Values.resources.memory | quote }}
+            cpu: {{ .Values.resources.cpu | quote }}
+          limits:
+            memory: {{ .Values.resources.memory | quote }}
+            cpu: {{ .Values.resources.cpu | quote }}
         {{- if .Values.secretmanager }}
         envFrom:
         - secretRef:
